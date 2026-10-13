@@ -1,0 +1,124 @@
+﻿:root {
+    --wave-unplayed: #EEE763;
+    --wave-played: #E6618C;
+    --wave-cursor: #EFA6B9;
+}
+
+body { background: #E9E03B !important; color: #000000 !important; } 
+
+.terminal { background: #E9E03B !important; border-color: #000000 !important; box-shadow: 0 0 35px rgba(233, 224, 59, 0.4) !important; } 
+
+@keyframes glitchYellow {
+    0% { transform: translate(0, 0); filter: drop-shadow(0 0 0 transparent); }
+    15% { transform: translate(-0.1px, 0.1px); filter: drop-shadow(1px 0 rgba(233, 224, 59, 0.6)); }
+    18% { transform: translate(0.1px, -0.1px); filter: drop-shadow(-1px 0 rgba(230, 97, 140, 0.6)); }
+    20% { transform: translate(0, 0); filter: drop-shadow(0 0 0 transparent); }
+    100% { transform: translate(0, 0); filter: drop-shadow(0 0 0 transparent); }
+}
+
+.audio-grid button.is-playing-card {
+    animation: glitchYellow 2.9s infinite steps(1, start) !important;
+    background: rgba(230, 97, 140, 0.25) !important;
+    border-color: #E6618C !important;
+    box-shadow: 2px 0 rgba(233, 224, 59, 0.6), -2px 0 rgba(239, 166, 185, 0.6) !important;
+}
+
+.terminal-header { background: rgba(233, 231, 99, 0.8) !important; border-bottom: 2px solid #000000 !important; } 
+blockquote { border-color: #E6618C !important; background: rgba(239, 166, 185, 0.3) !important; color: #000000 !important; } 
+
+.category-header-box { border-bottom: 1px dashed #E9E9E9 !important; }
+.category-banner-thumb { border: 1px solid #000000 !important; }
+.category-header-box h2 { color: #000000 !important; } 
+
+.waveform-box { background: rgba(233, 231, 99, 0.70) !important; border: 1px solid #E9E9E9 !important; box-shadow: inset 0 0 20px rgba(230, 97, 140, 0.15) !important; } 
+.active-cover { border: 1px solid #000000 !important; }
+.close-btn { color: #E6618C !important; }
+.time-row { color: #000000 !important; opacity: 0.9 !important; }
+
+.pause-btn { background: #E6618C !important; color: #000000 !important; border: 1px solid #000000 !important; }
+.pause-btn:hover { background: #000000 !important; color: #E6618C !important; }
+
+.action-icon-btn { background: rgba(239, 166, 185, 0.4) !important; color: #000000 !important; border: 1px solid #E9E9E9 !important; }
+.action-icon-btn:hover { background: #E6618C !important; color: #000000 !important; border-color: #000000 !important; }
+.speed-slider-container input[type="range"] { accent-color: #E6618C !important; }
+
+.comments-section { border-top: 1px dashed #E9E9E9 !important; }
+.comment-input-row input { background: rgba(233, 231, 99, 0.4) !important; border: 1px solid #E9E9E9 !important; color: #000000 !important; }
+.comment-submit-btn { background: #EFA6B9 !important; color: #000000 !important; border: 1px solid #000000 !important; }
+.comment-submit-btn:hover { background: #000000 !important; color: #EFA6B9 !important; }
+.comment-item { background: rgba(239, 166, 185, 0.25) !important; border: 1px solid rgba(233, 231, 99, 0.5) !important; }
+.comment-time { color: #E6618C !important; }
+
+.yt-link { color: #000000 !important; border-bottom: 1px dashed #E6618C !important; background: rgba(239, 166, 185, 0.4) !important; padding: 2px 6px !important; }
+
+.audio-grid button { background: rgba(233, 231, 99, 0.35) !important; color: #000000 !important; border: 1px solid #E9E9E9 !important; } 
+.audio-grid button:hover { background: #E6618C !important; border-color: #000000 !important; color: #000000 !important; } 
+
+.social-circle-btn { background: rgba(239, 166, 185, 0.5) !important; color: #000000 !important; border: 1px solid #E9E9E9 !important; }
+.social-circle-btn:hover { background: #E6618C !important; color: #000000 !important; }
+.terminal-footer { background: rgba(233, 231, 99, 0.8) !important; border-top: 1px solid #E9E9E9 !important; color: #000000 !important; }
+
+.merch-content { background: rgba(233, 231, 99, 0.35) !important; border: 1px solid #E9E9E9 !important; }
+.merch-cassette-img { border: 1px solid #000000 !important; }
+.merch-desc { color: #000000 !important; }
+.merch-buy-btn { background: #E6618C !important; color: #000000 !important; border: 1px solid #000000 !important; }
+.merch-buy-btn:hover { background: #000000 !important; color: #E6618C !important; }
+
+@keyframes slideDownFromTop {
+    0% { transform: translateY(-40px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.network-top-container { 
+    position: fixed; top: 25px; right: 30px; 
+    display: flex; flex-direction: column; align-items: center; z-index: 100; 
+    animation: slideDownFromTop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+    gap: 16px; /* Controls desktop spacing between countdown and social icons */
+}
+
+/* Countdown Box Styles (Yellow Theme) */
+.countdown-box {
+    background: rgba(239, 166, 185, 0.5) !important;
+    border: 1px solid #E9E9E9 !important;
+    color: #000000 !important;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    white-space: nowrap;
+}
+.countdown-label {
+    color: #000000 !important;
+    opacity: 0.7 !important;
+    font-size: 0.9em;
+}
+#countdownTimerMobile, #countdownTimer {
+    font-weight: bold;
+    color: #E6618C !important;
+}
+
+@media (max-width: 768px) { 
+    body { padding: 10px; align-items: flex-start; } 
+    .terminal { margin-top: 20px; }
+    .network-top-container { display: none !important; }
+    .mobile-social-container { 
+        display: flex !important; 
+        flex-direction: column !important; 
+        align-items: center !important; 
+        justify-content: center !important; 
+        margin-top: 25px; 
+        margin-bottom: 10px; 
+        border-top: 1px dashed rgba(0, 0, 0, 0.2); 
+        padding-top: 15px; 
+        gap: 24px; 
+    }
+    .mobile-social-row { display: flex; flex-direction: row; justify-content: center; gap: 12px; }
+    .player-inner { flex-direction: column; align-items: center; text-align: center; }
+    .audio-grid { grid-template-columns: 1fr; } 
+    .controls-bar { flex-direction: column; gap: 12px; align-items: center; } 
+    .merch-content { flex-direction: column; text-align: center; }
+}
