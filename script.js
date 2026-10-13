@@ -127,34 +127,45 @@
         console.error("Error initializing Supabase client:", e);
     }
 
-    // Vault Categories with tags, date stamps, and raw download paths
+    // Expanded Vault Categories with multiple tracks and raw download paths
     const vaultCategories = [
         {
-            title: "$ bootleg_vault_stream",
+            title: "$ bootleg_vault_stream // raw singles",
             sectionImage: "assets/images/blair-icon-red.png", 
             tracks: [
                 { id: "s1", tag: "BOUNCE", date: "2026-10-02", name: "raw_cut_01", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "https://youtube.com/your-video-1", likes: 14, rawWav: "assets/audio/ep-singles/single1/track2.wav" },
                 { id: "s2", tag: "LIVE", date: "2026-09-28", name: "midnight_freq", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 28, rawWav: "assets/audio/ep-singles/single2/track2.wav" },
-                { id: "c1", tag: "ALT", date: "2026-09-20", name: "sub_zero_session", src: "assets/audio/ep-singles/single3/track3.wav", cover: "assets/images/covers/single3/cover.jpg", youtube: "https://youtube.com/your-video-3", likes: 9, rawWav: "assets/audio/ep-singles/single3/track3.wav" },
-                { id: "c2", tag: "FINAL", date: "2026-09-12", name: "terminal_state", src: "assets/audio/ep-singles/single4/track4.wav", cover: "assets/images/covers/single4/cover.jpg", youtube: "", likes: 19, rawWav: "assets/audio/ep-singles/single4/track4.wav" }
+                { id: "s3", tag: "ALT", date: "2026-09-25", name: "overdriven_riff_session", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "", likes: 19, rawWav: "assets/audio/ep-singles/single1/track2.wav" },
+                { id: "s4", tag: "DEMO", date: "2026-09-22", name: "4_track_cassette_loop", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 42, rawWav: "assets/audio/ep-singles/single2/track2.wav" }
+            ]
+        },
+        {
+            title: "$ live_room_archives // unedited rehearsal tapes",
+            sectionImage: "assets/images/blair-icon-original.png", 
+            tracks: [
+                { id: "l1", tag: "LIVE", date: "2026-09-15", name: "chopo_rehearsal_take1", src: "assets/audio/ep-singles/single3/track3.wav", cover: "assets/images/covers/single3/cover.jpg", youtube: "", likes: 31, rawWav: "assets/audio/ep-singles/single3/track3.wav" },
+                { id: "l2", tag: "LIVE", date: "2026-09-10", name: "feedback_loop_experiment", src: "assets/audio/ep-singles/single4/track4.wav", cover: "assets/images/covers/single4/cover.jpg", youtube: "", likes: 22, rawWav: "assets/audio/ep-singles/single4/track4.wav" }
             ]
         }
     ];
 
     const catalogContainer = document.getElementById('catalogContainer');
+    const allTracks = vaultCategories.flatMap(cat => cat.tracks);
 
     function renderCatalog(filterTag) {
         if (!catalogContainer) return;
         
-        catalogContainer.innerHTML = vaultCategories.map(cat => `
-            <div class="category-header-box">
-                <img src="${cat.sectionImage}" alt="Section Cover" class="category-banner-thumb">
-                <h2>${cat.title}</h2>
-            </div>
-            <div class="audio-grid">
-                ${cat.tracks
-                    .filter(track => filterTag === 'ALL' || track.tag === filterTag)
-                    .map((track) => {
+        catalogContainer.innerHTML = vaultCategories.map(cat => {
+            const filteredTracks = cat.tracks.filter(track => filterTag === 'ALL' || track.tag === filterTag);
+            if (filteredTracks.length === 0) return ''; // Hide category if empty under filter
+
+            return `
+                <div class="category-header-box">
+                    <img src="${cat.sectionImage}" alt="Section Cover" class="category-banner-thumb">
+                    <h2>${cat.title}</h2>
+                </div>
+                <div class="audio-grid">
+                    ${filteredTracks.map((track) => {
                         const globalIdx = allTracks.findIndex(t => t.id === track.id);
                         return `
                             <button id="track_card_${globalIdx}" onclick="playTrack(${globalIdx})">
@@ -168,11 +179,11 @@
                             </button>
                         `;
                     }).join('')}
-            </div>
-        `).join('');
+                </div>
+            `;
+        }).join('');
     }
 
-    const allTracks = vaultCategories.flatMap(cat => cat.tracks);
     renderCatalog('ALL');
 
     window.filterVault = function(selectedTag) {
@@ -336,10 +347,13 @@
                     updateActiveCardVisuals(currentTrackIndex, false);
                 });
 
+                // AUTO-PLAY QUEUE: Automatically advance to the next track when finished
                 wavesurfer.on('finish', () => {
-                    if (pauseBtn) pauseBtn.textContent = "▶ RESUME";
-                    nowPlaying.textContent = '❚❚ Paused: ' + currentTrack.name;
-                    updateActiveCardVisuals(currentTrackIndex, false);
+                    let nextIndex = currentTrackIndex + 1;
+                    if (nextIndex >= allTracks.length) {
+                        nextIndex = 0; // Loop back to start of vault stream
+                    }
+                    playTrack(nextIndex);
                 });
             } else {
                 wavesurfer.setOptions({

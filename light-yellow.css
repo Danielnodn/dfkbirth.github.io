@@ -26,11 +26,33 @@ body { background: #E9E03B !important; color: #000000 !important; }
 .terminal-header { background: rgba(233, 231, 99, 0.8) !important; border-bottom: 2px solid #000000 !important; } 
 blockquote { border-color: #E6618C !important; background: rgba(239, 166, 185, 0.3) !important; color: #000000 !important; } 
 
-.category-header-box { border-bottom: 1px dashed #E9E9E9 !important; }
+.category-header-box { border-bottom: 1px dashed #000000 !important; }
 .category-banner-thumb { border: 1px solid #000000 !important; }
 .category-header-box h2 { color: #000000 !important; } 
 
-.waveform-box { background: rgba(233, 231, 99, 0.70) !important; border: 1px solid #E9E9E9 !important; box-shadow: inset 0 0 20px rgba(230, 97, 140, 0.15) !important; } 
+/* Scrollable Vault Container Styles for Yellow Theme */
+#catalogContainer {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-top: 10px;
+    border: 1px dashed rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    background: rgba(233, 231, 99, 0.35);
+    border-radius: 4px;
+}
+#catalogContainer::-webkit-scrollbar {
+    width: 6px;
+}
+#catalogContainer::-webkit-scrollbar-track {
+    background: rgba(233, 231, 99, 0.2);
+}
+#catalogContainer::-webkit-scrollbar-thumb {
+    background: #000000;
+    border-radius: 2px;
+}
+
+.waveform-box { background: rgba(233, 231, 99, 0.70) !important; border: 1px solid #000000 !important; box-shadow: inset 0 0 20px rgba(230, 97, 140, 0.15) !important; } 
 .active-cover { border: 1px solid #000000 !important; }
 .close-btn { color: #E6618C !important; }
 .time-row { color: #000000 !important; opacity: 0.9 !important; }
@@ -38,27 +60,27 @@ blockquote { border-color: #E6618C !important; background: rgba(239, 166, 185, 0
 .pause-btn { background: #E6618C !important; color: #000000 !important; border: 1px solid #000000 !important; }
 .pause-btn:hover { background: #000000 !important; color: #E6618C !important; }
 
-.action-icon-btn { background: rgba(239, 166, 185, 0.4) !important; color: #000000 !important; border: 1px solid #E9E9E9 !important; }
+.action-icon-btn { background: rgba(239, 166, 185, 0.4) !important; color: #000000 !important; border: 1px solid #000000 !important; }
 .action-icon-btn:hover { background: #E6618C !important; color: #000000 !important; border-color: #000000 !important; }
 .speed-slider-container input[type="range"] { accent-color: #E6618C !important; }
 
-.comments-section { border-top: 1px dashed #E9E9E9 !important; }
-.comment-input-row input { background: rgba(233, 231, 99, 0.4) !important; border: 1px solid #E9E9E9 !important; color: #000000 !important; }
+.comments-section { border-top: 1px dashed rgba(0, 0, 0, 0.3) !important; }
+.comment-input-row input { background: rgba(233, 231, 99, 0.4) !important; border: 1px solid #000000 !important; color: #000000 !important; }
 .comment-submit-btn { background: #EFA6B9 !important; color: #000000 !important; border: 1px solid #000000 !important; }
 .comment-submit-btn:hover { background: #000000 !important; color: #EFA6B9 !important; }
-.comment-item { background: rgba(239, 166, 185, 0.25) !important; border: 1px solid rgba(233, 231, 99, 0.5) !important; }
+.comment-item { background: rgba(239, 166, 185, 0.25) !important; border: 1px solid rgba(0, 0, 0, 0.2) !important; }
 .comment-time { color: #E6618C !important; }
 
 .yt-link { color: #000000 !important; border-bottom: 1px dashed #E6618C !important; background: rgba(239, 166, 185, 0.4) !important; padding: 2px 6px !important; }
 
-.audio-grid button { background: rgba(233, 231, 99, 0.35) !important; color: #000000 !important; border: 1px solid #E9E9E9 !important; } 
+.audio-grid button { background: rgba(233, 231, 99, 0.35) !important; color: #000000 !important; border: 1px solid #000000 !important; } 
 .audio-grid button:hover { background: #E6618C !important; border-color: #000000 !important; color: #000000 !important; } 
 
-.social-circle-btn { background: rgba(239, 166, 185, 0.5) !important; color: #000000 !important; border: 1px solid #E9E9E9 !important; }
+.social-circle-btn { background: rgba(239, 166, 185, 0.5) !important; color: #000000 !important; border: 1px solid #000000 !important; }
 .social-circle-btn:hover { background: #E6618C !important; color: #000000 !important; }
-.terminal-footer { background: rgba(233, 231, 99, 0.8) !important; border-top: 1px solid #E9E9E9 !important; color: #000000 !important; }
+.terminal-footer { background: rgba(233, 231, 99, 0.8) !important; border-top: 1px solid #000000 !important; color: #000000 !important; }
 
-.merch-content { background: rgba(233, 231, 99, 0.35) !important; border: 1px solid #E9E9E9 !important; }
+.merch-content { background: rgba(233, 231, 99, 0.35) !important; border: 1px solid #000000 !important; }
 .merch-cassette-img { border: 1px solid #000000 !important; }
 .merch-desc { color: #000000 !important; }
 .merch-buy-btn { background: #E6618C !important; color: #000000 !important; border: 1px solid #000000 !important; }
@@ -73,13 +95,13 @@ blockquote { border-color: #E6618C !important; background: rgba(239, 166, 185, 0
     position: fixed; top: 25px; right: 30px; 
     display: flex; flex-direction: column; align-items: center; z-index: 100; 
     animation: slideDownFromTop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
-    gap: 16px; /* Controls desktop spacing between countdown and social icons */
+    gap: 16px; 
 }
 
 /* Countdown Box Styles (Yellow Theme) */
 .countdown-box {
     background: rgba(239, 166, 185, 0.5) !important;
-    border: 1px solid #E9E9E9 !important;
+    border: 1px solid #000000 !important;
     color: #000000 !important;
     padding: 6px 10px;
     border-radius: 4px;

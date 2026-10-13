@@ -47,7 +47,29 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 .filter-tag { background: #161616; color: #e3f5ee; border: 1px solid #e3f5ee; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 0.85em; transition: all 0.2s; }
 .filter-tag:hover, .filter-tag.active { background: #e3f5ee; color: #111; }
 
-.category-header-box { display: flex; align-items: center; gap: 12px; margin-top: 25px; margin-bottom: 12px; border-bottom: 1px dashed #e3f5ee; padding-bottom: 6px; }
+/* Scrollable Vault Container */
+#catalogContainer {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-top: 10px;
+    border: 1px dashed rgba(227, 245, 238, 0.2);
+    padding: 12px;
+    background: #0a0a0a;
+    border-radius: 4px;
+}
+#catalogContainer::-webkit-scrollbar {
+    width: 6px;
+}
+#catalogContainer::-webkit-scrollbar-track {
+    background: #0b0b0b;
+}
+#catalogContainer::-webkit-scrollbar-thumb {
+    background: #e3f5ee;
+    border-radius: 2px;
+}
+
+.category-header-box { display: flex; align-items: center; gap: 12px; margin-top: 15px; margin-bottom: 12px; border-bottom: 1px dashed #e3f5ee; padding-bottom: 6px; }
 .category-banner-thumb { width: 28px; height: 28px; object-fit: cover; border-radius: 4px; border: 1px solid #e3f5ee; }
 .category-header-box h2 { margin: 0; border: none; padding: 0; display: inline-block; font-size: 1.3em; } 
 
@@ -96,7 +118,7 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 .yt-link { color: #e3f5ee !important; text-decoration: none; font-weight: bold; border-bottom: 1px dashed #e3f5ee; padding-bottom: 2px; } 
 
 /* Endless Vault List / Grid */
-.audio-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; margin-bottom: 20px; } 
+.audio-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; margin-bottom: 15px; } 
 .audio-grid button { background: #161616; color: #e3f5ee; border: 1px solid #e3f5ee; padding: 8px 12px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: space-between; border-radius: 4px; transition: all 0.2s; width: 100%; text-align: left; } 
 .track-btn-info { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .track-tag-badge { font-size: 0.7em; padding: 1px 5px; border-radius: 2px; border: 1px solid #e3f5ee; opacity: 0.8; }
