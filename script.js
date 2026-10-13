@@ -127,7 +127,7 @@
         console.error("Error initializing Supabase client:", e);
     }
 
-    // Expanded Vault Categories with multiple tracks and raw download paths
+    // Vault Categories
     const vaultCategories = [
         {
             title: "$ bootleg_vault_stream // raw singles",
@@ -157,11 +157,11 @@
         
         catalogContainer.innerHTML = vaultCategories.map(cat => {
             const filteredTracks = cat.tracks.filter(track => filterTag === 'ALL' || track.tag === filterTag);
-            if (filteredTracks.length === 0) return ''; // Hide category if empty under filter
+            if (filteredTracks.length === 0) return ''; 
 
             return `
                 <div class="category-header-box">
-                    <img src="${cat.sectionImage}" alt="Section Cover" class="category-banner-thumb">
+                    <img src="${cat.sectionImage}" alt="Section Cover" class="category-banner-thumb" onclick="openImageModal('${cat.sectionImage}')" title="Click to view full size">
                     <h2>${cat.title}</h2>
                 </div>
                 <div class="audio-grid">
@@ -226,6 +226,23 @@
     const commentInput = document.getElementById('commentInput');
     const commentsList = document.getElementById('commentsList');
     const speedVal = document.getElementById('speedVal');
+
+    // Lightbox Modal Elements
+    const imageModal = document.getElementById('imageModal');
+    const fullSizeImg = document.getElementById('fullSizeImg');
+
+    window.openImageModal = function(imageSrc) {
+        if (imageSrc && fullSizeImg && imageModal) {
+            fullSizeImg.src = imageSrc;
+            imageModal.classList.remove('hidden');
+        }
+    };
+
+    window.closeImageModal = function() {
+        if (imageModal) {
+            imageModal.classList.add('hidden');
+        }
+    };
 
     let wavesurfer = null;
     let currentSpeed = 1.0;
@@ -347,11 +364,10 @@
                     updateActiveCardVisuals(currentTrackIndex, false);
                 });
 
-                // AUTO-PLAY QUEUE: Automatically advance to the next track when finished
                 wavesurfer.on('finish', () => {
                     let nextIndex = currentTrackIndex + 1;
                     if (nextIndex >= allTracks.length) {
-                        nextIndex = 0; // Loop back to start of vault stream
+                        nextIndex = 0; 
                     }
                     playTrack(nextIndex);
                 });
@@ -492,6 +508,10 @@
     };
 
     document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeImageModal();
+        }
+
         if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
 
         if (e.code === 'Space') {

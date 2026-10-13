@@ -1,7 +1,7 @@
 :root {
     --wave-unplayed: #134074;
-    --wave-played: #00f2ff;
-    --wave-progress: #f500ff;
+    --wave-played: #f500ff;
+    --wave-progress: #00f2ff;
     --wave-cursor: #e040fb;
 }
 

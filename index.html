@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dfkb official</title>
     <link rel="icon" type="image/x-icon" href="assets/images/blair-icon-original.png">
-    <!-- Default Dark Mode Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <!-- Light mode variant stylesheet (disabled by default) -->
     <link id="lightThemeStylesheet" rel="stylesheet" href="" disabled>
-    <!-- WaveSurfer.js -->
     <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
-    <!-- Supabase CDN for Permanent Cloud Storage -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-<!-- Desktop Floating Top-Right Viewport Vertical Social Dock & Countdown -->
 <div class="network-top-container desktop-only">
     <div class="social-icon-row">
         <a href="https://instagram.com/dfkbirth" target="_blank" class="social-circle-btn" title="Instagram">
@@ -33,7 +28,6 @@
         </a>
     </div>
 
-    <!-- Desktop Countdown Widget (Below social icons) -->
     <div class="countdown-box" id="countdownBox" title="Time remaining on transmission license">
         <span class="countdown-label">LICENSE_EXP:</span>
         <span id="countdownTimer">--:--:--:--</span>
@@ -42,7 +36,7 @@
 
 <div class="terminal" id="terminalBox">
     <div class="terminal-header">
-        <img id="terminalIcon" src="assets/images/blair-icon-red.png" alt="Terminal Icon" class="terminal-icon">
+        <img id="terminalIcon" src="assets/images/blair-icon-red.png" alt="Terminal Icon" class="terminal-icon" onclick="openImageModal(this.src)" title="Click to view full size">
         <span class="title">@dfkbirth:~</span>
         <button id="themeToggle" class="theme-toggle">☼</button>
     </div>
@@ -59,12 +53,11 @@
             </div>
         </div>
 
-        <!-- Player Box -->
         <div id="playerDisplay" class="player-display hidden">
             <div class="waveform-box">
                 <button onclick="closePlayer()" class="close-btn">×</button>
                 <div class="player-inner">
-                    <img id="activeCover" class="active-cover" src="" alt="Cover Art">
+                    <img id="activeCover" class="active-cover" src="" alt="Cover Art" onclick="openImageModal(this.src)" title="Click to view full size">
                     <div class="player-right-col">
                         <div class="track-meta">
                             <span id="trackTitleDisplay" style="font-weight: bold; font-size: 1.1em;">Title</span>
@@ -80,7 +73,6 @@
                         <div class="controls-bar">
                             <button id="pauseBtn" onclick="togglePause()" class="pause-btn">⏸ PAUSE</button>
                             
-                            <!-- Action Buttons with SVG Icons -->
                             <div class="action-buttons">
                                 <button onclick="likeTrack()" title="Like" class="action-icon-btn" id="likeBtn">
                                     <svg id="likeIconSvg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z M10.5 5.5l-3 5.5h3.5l-2 7 5-7.5h-3.5l2-5h-3.5z"/></svg> 
@@ -94,7 +86,6 @@
                                 </button>
                             </div>
 
-                            <!-- Speed Slider Control -->
                             <div class="speed-slider-container">
                                 <label for="speedRange">SPEED: <span id="speedVal">1.0x</span></label>
                                 <input type="range" id="speedRange" min="0.5" max="2.0" step="0.25" value="1.0" oninput="changeSpeedSlider(this.value)">
@@ -103,7 +94,6 @@
                     </div>
                 </div>
 
-                <!-- Timestamped Comments Section -->
                 <div class="comments-section">
                     <div class="comment-input-row">
                         <input type="text" id="commentInput" placeholder="Leave a comment at current timestamp..." />
@@ -114,7 +104,6 @@
             </div>
         </div>
 
-        <!-- Filter Bar -->
         <div class="filter-bar">
             <span class="filter-label">TAGS:</span>
             <button class="filter-tag active" onclick="filterVault('ALL')">[ALL]</button>
@@ -124,16 +113,14 @@
             <button class="filter-tag" onclick="filterVault('FINAL')">[FINAL_CUTS]</button>
         </div>
 
-        <!-- Categorized Transmissions with Section Images -->
         <div id="catalogContainer"></div>
 
-        <!-- MERCH SECTION -->
         <div class="merch-section" id="merchSection">
             <div class="category-header-box">
                 <h2>$ merch // physical archive</h2>
             </div>
             <div class="merch-content">
-                <img src="assets/images/cassette.jpg" alt="Cassette Tape" class="merch-cassette-img">
+                <img src="assets/images/cassette.jpg" alt="Cassette Tape" class="merch-cassette-img" onclick="openImageModal(this.src)" title="Click to view full size">
                 <div class="merch-info">
                     <p class="merch-desc">limited edition analog cassette release. raw magnetic tape audio directly from the underground vault. grab your physical copy before transmission ends.</p>
                     <a href="https://bandcamp.com" target="_blank" class="merch-buy-btn">▶ acquire cassette</a>
@@ -141,7 +128,6 @@
             </div>
         </div>
 
-        <!-- Mobile-Only In-Container Social Icons & Countdown -->
         <div class="mobile-social-container">
             <div class="mobile-social-row">
                 <a href="https://instagram.com/dfkbirth" target="_blank" class="social-circle-btn" title="Instagram">
@@ -157,7 +143,6 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </a>
             </div>
-            <!-- 3-Year Regressive Countdown Widget (Mobile Placement) -->
             <div class="countdown-box mobile-countdown">
                 <span class="countdown-label">LICENSE_EXP:</span>
                 <span id="countdownTimerMobile">--:--:--:--</span>
@@ -166,6 +151,11 @@
 
     </div>
     <div class="terminal-footer">$ @dfkbirth &copy; all rights reserved // underground frequency</div>
+</div>
+
+<div id="imageModal" class="image-modal hidden" onclick="closeImageModal()">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="fullSizeImg" alt="Expanded Artwork">
 </div>
 
 <script>
