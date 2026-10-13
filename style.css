@@ -32,7 +32,6 @@ body { background: #080808; color: #e3f5ee; font-family: 'Courier New', monospac
 .terminal-header { background: #161616; padding: 10px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #e3f5ee; position: relative; border-top-left-radius: 6px; border-top-right-radius: 6px; } 
 .theme-toggle { position: absolute; right: 45px; background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; } 
 
-/* Clickable Terminal Header Icon */
 .terminal-icon { 
     width: 18px; 
     height: 18px; 
@@ -55,37 +54,63 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 .subtitle-container { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; } 
 .subtitle { font-size: 1.1em; margin-bottom: 0; } 
 
-/* Filter Bar Styles */
 .filter-bar { display: flex; align-items: center; gap: 8px; margin: 20px 0 15px 0; flex-wrap: wrap; font-size: 0.8em; }
 .filter-label { opacity: 0.7; font-weight: bold; }
 .filter-tag { background: #161616; color: #e3f5ee; border: 1px solid #e3f5ee; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 0.85em; transition: all 0.2s; }
 .filter-tag:hover, .filter-tag.active { background: #e3f5ee; color: #111; }
 
-/* Scrollable Vault Container */
-#catalogContainer {
-    max-height: 420px;
-    overflow-y: auto;
-    padding-right: 6px;
-    margin-top: 10px;
+.vault-wrapper {
     border: 1px dashed rgba(227, 245, 238, 0.2);
-    padding: 12px;
-    background: #0a0a0a;
     border-radius: 4px;
+    background: #0a0a0a;
+    margin-top: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
-#catalogContainer::-webkit-scrollbar {
-    width: 6px;
+.vault-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #141414;
+    border-bottom: 1px dashed rgba(227, 245, 238, 0.2);
+    font-size: 0.85em;
 }
-#catalogContainer::-webkit-scrollbar-track {
-    background: #0b0b0b;
+.vault-title { font-weight: bold; opacity: 0.9; }
+.minimize-btn {
+    background: #161616;
+    color: #ffbd2e;
+    border: 1px solid #ffbd2e;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.85em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
-#catalogContainer::-webkit-scrollbar-thumb {
-    background: #e3f5ee;
-    border-radius: 2px;
+.minimize-btn:hover { background: #ffbd2e; color: #111; }
+
+#catalogContainer {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 20px; /* Increased internal padding by 8px */
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, padding 0.35s ease;
+    opacity: 1;
 }
+#catalogContainer.collapsed {
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    opacity: 0;
+    overflow: hidden;
+}
+#catalogContainer::-webkit-scrollbar { width: 6px; }
+#catalogContainer::-webkit-scrollbar-track { background: #0b0b0b; }
+#catalogContainer::-webkit-scrollbar-thumb { background: #e3f5ee; border-radius: 2px; }
 
 .category-header-box { display: flex; align-items: center; gap: 12px; margin-top: 15px; margin-bottom: 12px; border-bottom: 1px dashed #e3f5ee; padding-bottom: 6px; }
 
-/* Clickable Category Banner Thumbnails */
 .category-banner-thumb { 
     width: 28px; 
     height: 28px; 
@@ -109,7 +134,6 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 
 .player-inner { display: flex; gap: 20px; align-items: center; }
 
-/* Clickable Player Cover Art Thumbnail */
 .active-cover { 
     width: 100px; 
     height: 100px; 
@@ -125,7 +149,6 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
     filter: brightness(1.15); 
 }
 
-/* Fully Responsive Lightbox Modal */
 .image-modal {
     position: fixed;
     z-index: 99999;
@@ -142,13 +165,8 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
     transition: opacity 0.3s ease;
     padding: 20px;
 }
-.image-modal:not(.hidden) {
-    opacity: 1;
-    pointer-events: auto;
-}
-.image-modal.hidden {
-    display: none !important;
-}
+.image-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+.image-modal.hidden { display: none !important; }
 .modal-content {
     max-width: 92vw;
     max-height: 88vh;
@@ -158,7 +176,6 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
     border: 2px solid #e3f5ee;
     box-shadow: 0 0 40px rgba(227, 245, 238, 0.4);
     border-radius: 6px;
-    animation: zoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     background: #000;
 }
 .modal-close {
@@ -172,10 +189,6 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
     font-family: monospace;
     z-index: 100000;
     line-height: 1;
-}
-@keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
 }
 
 .player-right-col { display: flex; flex-direction: column; width: 100%; gap: 8px; }
@@ -214,13 +227,11 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 .youtube-link-container.hidden { display: none !important; } 
 .yt-link { color: #e3f5ee !important; text-decoration: none; font-weight: bold; border-bottom: 1px dashed #e3f5ee; padding-bottom: 2px; } 
 
-/* Endless Vault List / Grid */
 .audio-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; margin-bottom: 15px; } 
 .audio-grid button { background: #161616; color: #e3f5ee; border: 1px solid #e3f5ee; padding: 8px 12px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: space-between; border-radius: 4px; transition: all 0.2s; width: 100%; text-align: left; } 
 .track-btn-info { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.btn-thumb { width: 24px; height: 24px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(227, 245, 238, 0.3); }
 .track-tag-badge { font-size: 0.7em; padding: 1px 5px; border-radius: 2px; border: 1px solid #e3f5ee; opacity: 0.8; }
-.track-raw-link { font-size: 0.75em; color: #ffbd2e; text-decoration: none; border-bottom: 1px dashed #ffbd2e; margin-left: 8px; }
-.track-raw-link:hover { opacity: 0.7; }
 .track-btn-likes { font-size: 0.8em; opacity: 0.8; }
 .audio-grid button:hover { background: #e3f5ee; color: #111; } 
 
@@ -247,16 +258,15 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 
 .terminal-footer { background: #161616; text-align: center; padding: 12px; font-size: 0.9em; margin-top: 20px; border-top: 1px solid rgba(227, 245, 238, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; } 
 
-/* Merch Section Dark Mode */
 .merch-section { margin-top: 30px; margin-bottom: 20px; }
 .merch-content { display: flex; gap: 20px; align-items: center; margin-top: 15px; background: #161616; border: 1px solid #e3f5ee; padding: 15px; border-radius: 6px; }
-.merch-cassette-img { width: 110px; height: 110px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(227, 245, 238, 0.3); flex-shrink: 0; }
+.merch-cassette-img { width: 110px; height: 110px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(227, 245, 238, 0.3); flex-shrink: 0; cursor: pointer; transition: transform 0.2s ease; }
+.merch-cassette-img:hover { transform: scale(1.05); }
 .merch-info { display: flex; flex-direction: column; gap: 10px; font-size: 0.85em; }
 .merch-desc { opacity: 0.85; line-height: 1.5; }
 .merch-buy-btn { display: inline-block; background: #161616; color: #ffbd2e; border: 1px solid #ffbd2e; padding: 6px 12px; text-decoration: none; border-radius: 3px; font-weight: bold; font-size: 0.85em; width: fit-content; transition: background 0.2s; }
 .merch-buy-btn:hover { background: #ffbd2e; color: #111; }
 
-/* Countdown Box Styles */
 .countdown-box {
     background: #161616;
     border: 1px solid #e3f5ee;
@@ -270,14 +280,8 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
     box-shadow: 0 3px 8px rgba(0,0,0,0.4);
     white-space: nowrap;
 }
-.countdown-label {
-    opacity: 0.6;
-    font-size: 0.9em;
-}
-#countdownTimerMobile, #countdownTimer {
-    font-weight: bold;
-    color: #ffbd2e;
-}
+.countdown-label { opacity: 0.6; font-size: 0.9em; }
+#countdownTimerMobile, #countdownTimer { font-weight: bold; color: #ffbd2e; }
 
 @media (max-width: 768px) { 
     body { padding: 10px; align-items: flex-start; } 

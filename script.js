@@ -127,24 +127,23 @@
         console.error("Error initializing Supabase client:", e);
     }
 
-    // Vault Categories
     const vaultCategories = [
         {
             title: "$ bootleg_vault_stream // raw singles",
             sectionImage: "assets/images/blair-icon-red.png", 
             tracks: [
-                { id: "s1", tag: "BOUNCE", date: "2026-10-02", name: "raw_cut_01", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "https://youtube.com/your-video-1", likes: 14, rawWav: "assets/audio/ep-singles/single1/track2.wav" },
-                { id: "s2", tag: "LIVE", date: "2026-09-28", name: "midnight_freq", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 28, rawWav: "assets/audio/ep-singles/single2/track2.wav" },
-                { id: "s3", tag: "ALT", date: "2026-09-25", name: "overdriven_riff_session", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "", likes: 19, rawWav: "assets/audio/ep-singles/single1/track2.wav" },
-                { id: "s4", tag: "DEMO", date: "2026-09-22", name: "4_track_cassette_loop", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 42, rawWav: "assets/audio/ep-singles/single2/track2.wav" }
+                { id: "s1", tag: "BOUNCE", date: "2026-10-02", name: "raw_cut_01", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "https://youtube.com/your-video-1", likes: 14 },
+                { id: "s2", tag: "LIVE", date: "2026-09-28", name: "midnight_freq", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 28 },
+                { id: "s3", tag: "ALT", date: "2026-09-25", name: "overdriven_riff_session", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "", likes: 19 },
+                { id: "s4", tag: "DEMO", date: "2026-09-22", name: "4_track_cassette_loop", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 42 }
             ]
         },
         {
             title: "$ live_room_archives // unedited rehearsal tapes",
             sectionImage: "assets/images/blair-icon-original.png", 
             tracks: [
-                { id: "l1", tag: "LIVE", date: "2026-09-15", name: "chopo_rehearsal_take1", src: "assets/audio/ep-singles/single3/track3.wav", cover: "assets/images/covers/single3/cover.jpg", youtube: "", likes: 31, rawWav: "assets/audio/ep-singles/single3/track3.wav" },
-                { id: "l2", tag: "LIVE", date: "2026-09-10", name: "feedback_loop_experiment", src: "assets/audio/ep-singles/single4/track4.wav", cover: "assets/images/covers/single4/cover.jpg", youtube: "", likes: 22, rawWav: "assets/audio/ep-singles/single4/track4.wav" }
+                { id: "l1", tag: "LIVE", date: "2026-09-15", name: "chopo_rehearsal_take1", src: "assets/audio/ep-singles/single3/track3.wav", cover: "assets/images/covers/single3/cover.jpg", youtube: "", likes: 31 },
+                { id: "l2", tag: "LIVE", date: "2026-09-10", name: "feedback_loop_experiment", src: "assets/audio/ep-singles/single4/track4.wav", cover: "assets/images/covers/single4/cover.jpg", youtube: "", likes: 22 }
             ]
         }
     ];
@@ -170,10 +169,10 @@
                         return `
                             <button id="track_card_${globalIdx}" onclick="playTrack(${globalIdx})">
                                 <div class="track-btn-info">
+                                    <img class="btn-thumb" src="${track.cover}" alt="cover">
                                     <span class="track-tag-badge">[${track.tag}]</span>
                                     <span style="font-size: 0.75em; opacity: 0.6;">${track.date}</span>
                                     <span style="font-weight: bold;">${track.name}</span>
-                                    <a href="${track.rawWav}" download class="track-raw-link" onclick="event.stopPropagation()">[RAW_WAV]</a>
                                 </div>
                                 <span class="track-btn-likes" id="grid_likes_${track.id}">♥ ${track.likes}</span>
                             </button>
@@ -190,6 +189,21 @@
         document.querySelectorAll('.filter-tag').forEach(btn => btn.classList.remove('active'));
         if (event && event.target) event.target.classList.add('active');
         renderCatalog(selectedTag);
+    };
+
+    window.toggleVaultMinimize = function() {
+        const container = document.getElementById('catalogContainer');
+        const btn = document.getElementById('minimizeVaultBtn');
+        if (!container || !btn) return;
+
+        const isCollapsed = container.classList.toggle('collapsed');
+        if (isCollapsed) {
+            btn.textContent = '[+]';
+            btn.title = "Expand Vault";
+        } else {
+            btn.textContent = '[-]';
+            btn.title = "Collapse Vault";
+        }
     };
 
     async function syncCloudLikes() {
@@ -227,7 +241,6 @@
     const commentsList = document.getElementById('commentsList');
     const speedVal = document.getElementById('speedVal');
 
-    // Lightbox Modal Elements
     const imageModal = document.getElementById('imageModal');
     const fullSizeImg = document.getElementById('fullSizeImg');
 
@@ -386,7 +399,12 @@
                 updateActiveCardVisuals(currentTrackIndex, true);
             });
 
-            if (currentTrack.cover && activeCover) activeCover.src = currentTrack.cover;
+            if (currentTrack.cover && activeCover) {
+                activeCover.src = currentTrack.cover;
+                activeCover.onclick = function() {
+                    openImageModal(currentTrack.cover);
+                };
+            }
         }
     };
 

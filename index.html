@@ -113,7 +113,14 @@
             <button class="filter-tag" onclick="filterVault('FINAL')">[FINAL_CUTS]</button>
         </div>
 
-        <div id="catalogContainer"></div>
+        <!-- Vault Container with Minimize Header -->
+        <div class="vault-wrapper">
+            <div class="vault-header-row">
+                <span class="vault-title">$ vault_stream // catalog</span>
+                <button id="minimizeVaultBtn" onclick="toggleVaultMinimize()" class="minimize-btn" title="Collapse / Expand Vault">[-]</button>
+            </div>
+            <div id="catalogContainer"></div>
+        </div>
 
         <div class="merch-section" id="merchSection">
             <div class="category-header-box">
