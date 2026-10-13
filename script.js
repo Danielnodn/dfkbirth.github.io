@@ -19,8 +19,7 @@
         }
     }
 
-    
-// ==========================================
+    // ==========================================
     // 3-YEAR REGRESSIVE COUNTDOWN LOGIC
     // ==========================================
     const countdownTimerDisplay = document.getElementById('countdownTimer');
@@ -28,7 +27,6 @@
     
     let targetTime = localStorage.getItem('licenseTargetTime');
     if (!targetTime) {
-        // 3 years from now in milliseconds
         targetTime = new Date().getTime() + (3 * 365.25 * 24 * 60 * 60 * 1000);
         localStorage.setItem('licenseTargetTime', targetTime);
     }
@@ -55,7 +53,6 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
-    
 
     function getWaveformColorsFromCSS() {
         const computed = getComputedStyle(document.documentElement);
@@ -130,53 +127,59 @@
         console.error("Error initializing Supabase client:", e);
     }
 
-    const categories = [
+    // Vault Categories with tags, date stamps, and raw download paths
+    const vaultCategories = [
         {
-            title: "$ ep_singles",
-            sectionImage: "assets/audio/ep-singles/single1/cover.jpg", 
+            title: "$ bootleg_vault_stream",
+            sectionImage: "assets/images/blair-icon-red.png", 
             tracks: [
-                { id: "s1", name: "raw_cut_01", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "https://youtube.com/your-video-1", likes: 14 },
-                { id: "s2", name: "midnight_freq", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 28 }
-            ]
-        },
-        {
-            title: "$ covers_project",
-            sectionImage: "assets/audio/ep-singles/single3/cover.jpg", 
-            tracks: [
-                { id: "c1", name: "sub_zero_session", src: "assets/audio/ep-singles/single3/track3.wav", cover: "assets/images/covers/single3/cover.jpg", youtube: "https://youtube.com/your-video-3", likes: 9 },
-                { id: "c2", name: "terminal_state", src: "assets/audio/ep-singles/single4/track4.wav", cover: "assets/images/covers/single4/cover.jpg", youtube: "", likes: 19 }
+                { id: "s1", tag: "BOUNCE", date: "2026-10-02", name: "raw_cut_01", src: "assets/audio/ep-singles/single1/track2.wav", cover: "assets/images/covers/grillz/cover2.jpg", youtube: "https://youtube.com/your-video-1", likes: 14, rawWav: "assets/audio/ep-singles/single1/track2.wav" },
+                { id: "s2", tag: "LIVE", date: "2026-09-28", name: "midnight_freq", src: "assets/audio/ep-singles/single2/track2.wav", cover: "assets/images/covers/track1/cover1.jpg", youtube: "", likes: 28, rawWav: "assets/audio/ep-singles/single2/track2.wav" },
+                { id: "c1", tag: "ALT", date: "2026-09-20", name: "sub_zero_session", src: "assets/audio/ep-singles/single3/track3.wav", cover: "assets/images/covers/single3/cover.jpg", youtube: "https://youtube.com/your-video-3", likes: 9, rawWav: "assets/audio/ep-singles/single3/track3.wav" },
+                { id: "c2", tag: "FINAL", date: "2026-09-12", name: "terminal_state", src: "assets/audio/ep-singles/single4/track4.wav", cover: "assets/images/covers/single4/cover.jpg", youtube: "", likes: 19, rawWav: "assets/audio/ep-singles/single4/track4.wav" }
             ]
         }
     ];
 
     const catalogContainer = document.getElementById('catalogContainer');
-    if (catalogContainer) {
-        catalogContainer.innerHTML = categories.map((cat, catIdx) => `
+
+    function renderCatalog(filterTag) {
+        if (!catalogContainer) return;
+        
+        catalogContainer.innerHTML = vaultCategories.map(cat => `
             <div class="category-header-box">
                 <img src="${cat.sectionImage}" alt="Section Cover" class="category-banner-thumb">
                 <h2>${cat.title}</h2>
             </div>
             <div class="audio-grid">
-                ${cat.tracks.map((track, trackIdx) => {
-                    let globalIdx = 0;
-                    for(let i=0; i<catIdx; i++) globalIdx += categories[i].tracks.length;
-                    globalIdx += trackIdx;
-
-                    return `
-                        <button id="track_card_${globalIdx}" onclick="playTrack(${globalIdx})">
-                            <div class="track-btn-info">
-                                <img class="btn-thumb" src="${track.cover}" alt="c"> 
-                                <span>${track.name}</span>
-                            </div>
-                            <span class="track-btn-likes" id="grid_likes_${track.id}">♥ ${track.likes}</span>
-                        </button>
-                    `;
-                }).join('')}
+                ${cat.tracks
+                    .filter(track => filterTag === 'ALL' || track.tag === filterTag)
+                    .map((track) => {
+                        const globalIdx = allTracks.findIndex(t => t.id === track.id);
+                        return `
+                            <button id="track_card_${globalIdx}" onclick="playTrack(${globalIdx})">
+                                <div class="track-btn-info">
+                                    <span class="track-tag-badge">[${track.tag}]</span>
+                                    <span style="font-size: 0.75em; opacity: 0.6;">${track.date}</span>
+                                    <span style="font-weight: bold;">${track.name}</span>
+                                    <a href="${track.rawWav}" download class="track-raw-link" onclick="event.stopPropagation()">[RAW_WAV]</a>
+                                </div>
+                                <span class="track-btn-likes" id="grid_likes_${track.id}">♥ ${track.likes}</span>
+                            </button>
+                        `;
+                    }).join('')}
             </div>
         `).join('');
     }
 
-    const allTracks = categories.flatMap(cat => cat.tracks);
+    const allTracks = vaultCategories.flatMap(cat => cat.tracks);
+    renderCatalog('ALL');
+
+    window.filterVault = function(selectedTag) {
+        document.querySelectorAll('.filter-tag').forEach(btn => btn.classList.remove('active'));
+        if (event && event.target) event.target.classList.add('active');
+        renderCatalog(selectedTag);
+    };
 
     async function syncCloudLikes() {
         if (!supabaseClient) return;

@@ -38,8 +38,14 @@ h1 { font-size: 2.2em; margin-bottom: 8px; }
 
 blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3px solid #e3f5ee; padding-left: 10px; background: rgba(227, 245, 238, 0.03); padding-top: 4px; padding-bottom: 4px; } 
 
-.subtitle-container { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; } 
+.subtitle-container { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; } 
 .subtitle { font-size: 1.1em; margin-bottom: 0; } 
+
+/* Filter Bar Styles */
+.filter-bar { display: flex; align-items: center; gap: 8px; margin: 20px 0 15px 0; flex-wrap: wrap; font-size: 0.8em; }
+.filter-label { opacity: 0.7; font-weight: bold; }
+.filter-tag { background: #161616; color: #e3f5ee; border: 1px solid #e3f5ee; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 0.85em; transition: all 0.2s; }
+.filter-tag:hover, .filter-tag.active { background: #e3f5ee; color: #111; }
 
 .category-header-box { display: flex; align-items: center; gap: 12px; margin-top: 25px; margin-bottom: 12px; border-bottom: 1px dashed #e3f5ee; padding-bottom: 6px; }
 .category-banner-thumb { width: 28px; height: 28px; object-fit: cover; border-radius: 4px; border: 1px solid #e3f5ee; }
@@ -89,10 +95,13 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 .youtube-link-container.hidden { display: none !important; } 
 .yt-link { color: #e3f5ee !important; text-decoration: none; font-weight: bold; border-bottom: 1px dashed #e3f5ee; padding-bottom: 2px; } 
 
-.audio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; margin-bottom: 20px; } 
+/* Endless Vault List / Grid */
+.audio-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; margin-bottom: 20px; } 
 .audio-grid button { background: #161616; color: #e3f5ee; border: 1px solid #e3f5ee; padding: 8px 12px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: space-between; border-radius: 4px; transition: all 0.2s; width: 100%; text-align: left; } 
-.track-btn-info { display: flex; align-items: center; gap: 10px; }
-.btn-thumb { width: 32px; height: 32px; object-fit: cover; border-radius: 3px; } 
+.track-btn-info { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.track-tag-badge { font-size: 0.7em; padding: 1px 5px; border-radius: 2px; border: 1px solid #e3f5ee; opacity: 0.8; }
+.track-raw-link { font-size: 0.75em; color: #ffbd2e; text-decoration: none; border-bottom: 1px dashed #ffbd2e; margin-left: 8px; }
+.track-raw-link:hover { opacity: 0.7; }
 .track-btn-likes { font-size: 0.8em; opacity: 0.8; }
 .audio-grid button:hover { background: #e3f5ee; color: #111; } 
 
@@ -107,7 +116,7 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
     position: fixed; top: 25px; right: 30px; 
     display: flex; flex-direction: column; align-items: center; z-index: 100; 
     animation: slideDownFromTop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
-    gap: 30px; /* Controls desktop spacing between countdown and social icons */
+    gap: 16px; 
 }
 .social-icon-row { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .social-circle-btn { 
@@ -117,16 +126,7 @@ blockquote { margin-bottom: 20px; font-size: 1em; opacity: 0.85; border-left: 3p
 }
 .social-circle-btn:hover { background: #e3f5ee; color: #111; transform: scale(1.15); }
 
-.terminal-footer { 
-    background: #161616; 
-    text-align: center; 
-    padding: 12px; 
-    font-size: 0.9em; 
-    margin-top: 20px; 
-    border-top: 1px solid rgba(227, 245, 238, 0.2); 
-    border-bottom-left-radius: 8px; /* Ajusta las esquinas inferiores */
-    border-bottom-right-radius: 8px; 
-}
+.terminal-footer { background: #161616; text-align: center; padding: 12px; font-size: 0.9em; margin-top: 20px; border-top: 1px solid rgba(227, 245, 238, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; } 
 
 /* Merch Section Dark Mode */
 .merch-section { margin-top: 30px; margin-bottom: 20px; }

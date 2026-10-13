@@ -33,9 +33,9 @@
         </a>
     </div>
 
-    <!-- Desktop Countdown Widget (Now below the social icons) -->
+    <!-- Desktop Countdown Widget (Below social icons) -->
     <div class="countdown-box" id="countdownBox" title="Time remaining on transmission license">
-        <span class="countdown-label">DEAD-COUNTDOWN:</span>
+        <span class="countdown-label">LICENSE_EXP:</span>
         <span id="countdownTimer">--:--:--:--</span>
     </div>
 </div>
@@ -114,6 +114,16 @@
             </div>
         </div>
 
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <span class="filter-label">TAGS:</span>
+            <button class="filter-tag active" onclick="filterVault('ALL')">[ALL]</button>
+            <button class="filter-tag" onclick="filterVault('BOUNCE')">[BOUNCE_LATEST]</button>
+            <button class="filter-tag" onclick="filterVault('LIVE')">[LIVE_ROOM]</button>
+            <button class="filter-tag" onclick="filterVault('ALT')">[ALT_TAKES]</button>
+            <button class="filter-tag" onclick="filterVault('FINAL')">[FINAL_CUTS]</button>
+        </div>
+
         <!-- Categorized Transmissions with Section Images -->
         <div id="catalogContainer"></div>
 
@@ -149,7 +159,7 @@
             </div>
             <!-- 3-Year Regressive Countdown Widget (Mobile Placement) -->
             <div class="countdown-box mobile-countdown">
-                <span class="countdown-label">DEAD-COUNTDOWN:</span>
+                <span class="countdown-label">LICENSE_EXP:</span>
                 <span id="countdownTimerMobile">--:--:--:--</span>
             </div>
         </div>
